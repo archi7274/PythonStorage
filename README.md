@@ -1,2 +1,2 @@
 # PythonStorage
-파이썬 저장소
+PS(problem solve) 연습 (파이썬)
