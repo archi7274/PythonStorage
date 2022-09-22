@@ -49,11 +49,13 @@ print(sum(arr))
 
 
 # 총알의 속도
+
 a,b = map(float,input().split())
 n = (a+b) / (1+((a+b)/(299792458**2)))
 
 
 # 분할 정복을 이용한 거듭제곱
+
 def fpow(N,n,m):
     if n == 1:
         return N % m
@@ -100,6 +102,7 @@ print(primalityTest(2700643,1))
 
 
 # 소인수 구하기
+
 def f(x):
     arr = list()
     i = 2
@@ -112,6 +115,7 @@ def f(x):
     return arr
 
 # 유클리드 호제법
+
 def gcd(a, b):
     if a == b:
         return a
@@ -123,3 +127,80 @@ def gcd(a, b):
         c = a % b
         a = b
         b = c
+
+# 이항계수
+
+def fac(n):
+    res = 1
+    for i in range(2,n+1):
+        res *= i
+    return res
+n,r = map(int,input().split())
+print((fac(n)//fac(r)//fac(n-r)))
+
+
+# 가장 큰 증가하는 부분 수열 ( LIS )
+# 11053번
+
+n = int(input())
+arr = list(map(int, input().split()))
+dp = [1 for _ in range(n)]
+for i in range(n):
+    for j in range(i):
+        if arr[i]>arr[j]:
+            dp[i]=max(dp[i], dp[j]+1)
+print(max(dp))
+
+
+# 에라토스 테네스의 체
+
+def prime(n):
+    sieve = [True] * n
+    m = int(n ** 0.5)
+    for i in range(2, m + 1):
+        if sieve[i] == True:           
+            for j in range(i+i, n, i): 
+                sieve[j] = False
+    return [i for i in range(2, n) if sieve[i] == True]
+
+
+
+# KMP
+
+def fail(s):
+    n = len(s); arr = []
+    for i in range(1,n+1):
+        j = 0
+        while(j and s[i] != s[j]): j = arr[j - 1]
+        if( s[i] == s[j]): arr[i] = ++j
+    return arr
+
+def KMP(a,b):
+    n = len(a); m = len(b)
+    ret,f = fail(b)
+
+    for i in range(1,n+1):
+        while (j and a[i] != b[j]): j = f[j-1]
+        if a[i] == b[j] and ++j == m:
+            ret.append(i-m+1)
+            j = f[j-1]
+    return ret
+
+# 요세푸스 문제
+
+import sys;sys.setrecursionlimit(10000)
+def f(n,k):
+    if n == 1:
+        return 0
+    if k == 1:
+        return n - 1
+    if k > n:
+        return (f(n-1,k)+k)%n+1
+    cnt = n//k
+    res = f(n-cnt,k)
+    res -= n%k
+    if res < 0: res += n
+    else: res += res // (k - 1)
+    return res
+
+
