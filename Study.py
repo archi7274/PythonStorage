@@ -66,6 +66,19 @@ def fpow(N,n,m):
         else:
             return (x * x * N) % m
 
+# 분할 정복을 이용한 거듭제곱 반복문 버전
+def fpow(C, n):
+	res = 1
+	while n:
+		if n & 1:
+			res *= C
+		C *= C;
+		n >> 1
+        
+	return res
+
+
+
 
 # 밀러 라빈
 
